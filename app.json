@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "behelp",
+    "slug": "behelp",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
