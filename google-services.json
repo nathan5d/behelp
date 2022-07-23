@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "406560294851",
+    "project_id": "behelp-6b527",
+    "storage_bucket": "behelp-6b527.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406560294851:android:d7616c3829d94524579f76",
+        "android_client_info": {
+          "package_name": "com.behelp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406560294851-ne711utcirm44569bt3t93rkhndujcth.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDI0gwYJDGm6UYGLcRj_M8IlQJONXJDqJw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "406560294851-ne711utcirm44569bt3t93rkhndujcth.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "406560294851-gap0hn2ve535kp1750j4h893ga63fajq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.behelp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
