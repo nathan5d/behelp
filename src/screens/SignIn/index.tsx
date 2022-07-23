@@ -100,7 +100,7 @@ export default function SignIn() {
         <Logo />
       </PresenceTransition>
 
-      <Heading color={"dark.100"} fontSize="xl" mt={20} mb={6}>
+      <Heading color={"light.100"} fontSize="xl" mt={20} mb={6}>
         Acesse Sua Conta
       </Heading>
       <FormControl isRequired mb={4}>
