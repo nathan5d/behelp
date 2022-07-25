@@ -23,7 +23,7 @@ export default function App() {
         translucent
       />
 
-      {fontsLoaded ? <Routes /> : Loading}
+      {fontsLoaded ? <Routes /> : <Loading />}
     </NativeBaseProvider>
   );
 }

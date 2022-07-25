@@ -1,14 +1,13 @@
+import React from "react";
 import { VStack, Text, HStack, useTheme, ScrollView } from "native-base";
 
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
-import { Header } from "../../components/Header";
 import { OrderProps } from "../../components/Order";
 import { useEffect, useState } from "react";
 import firestore from "@react-native-firebase/firestore";
 import { OrderFireBaseDTO } from "../../DTOs/OrderDTO";
 import { dateFormat } from "../../utils/firestoreDateFormats";
-import { Loading } from "../../components/Loading";
 import {
   CircleWavyCheck,
   Hourglass,
@@ -16,6 +15,8 @@ import {
   Clipboard,
   ClipboardText,
 } from "phosphor-react-native";
+import { Header } from "../../components/Header";
+import { Loading } from "../../components/Loading";
 import { CardDetails } from "../../components/CardDetails";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";

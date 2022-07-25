@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Alert } from "react-native";
 import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
 
@@ -13,16 +14,15 @@ import {
   VStack,
 } from "native-base";
 import { ChatTeardropText, SignOut } from "phosphor-react-native";
-import { Filter } from "../../components/Filter";
 
-import { Order, OrderProps } from "../../components/Order";
 
 import { dateFormat } from "../../utils/firestoreDateFormats";
 
-import Logo from "../../assets/logo_secondary.svg";
-import { Button } from "../../components/Button";
+import Logo from "../../assets/text7245.svg";
 import { useNavigation } from "@react-navigation/native";
-import { Alert } from "react-native";
+import { Button } from "../../components/Button";
+import { Filter } from "../../components/Filter";
+import { Order, OrderProps } from "../../components/Order";
 import { Loading } from "../../components/Loading";
 
 export default function Home() {
@@ -89,7 +89,7 @@ export default function Home() {
         pb={5}
         px={6}
       >
-        <Logo />
+        <Logo width={80} textAnchor="start" />
         <IconButton
           icon={<SignOut size={26} color={colors.dark[300]} />}
           onPress={handleLogout}

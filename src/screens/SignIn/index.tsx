@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Alert } from "react-native";
 import auth from "@react-native-firebase/auth";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -13,10 +14,9 @@ import {
   WarningOutlineIcon,
 } from "native-base";
 import { Envelope, Key } from "phosphor-react-native";
-import Logo from "../../assets/logo_primary.svg";
+import Logo from "../../assets/text7241.svg";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";
-import { Alert } from "react-native";
 
 export default function SignIn() {
   const [isLoading, setIsLoading] = useState(false);
@@ -97,7 +97,7 @@ export default function SignIn() {
           },
         }}
       >
-        <Logo />
+        <Logo width={68} />
       </PresenceTransition>
 
       <Heading color={"light.100"} fontSize="xl" mt={20} mb={6}>

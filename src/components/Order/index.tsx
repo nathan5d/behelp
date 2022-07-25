@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Circle,
@@ -24,7 +25,7 @@ type Props = IPressableProps & {
   data: OrderProps;
 };
 
-export const Order=({ data, ...rest }: Props)=> {
+export function Order({ data, ...rest }: Props) {
   const { colors } = useTheme();
   const statusColor =
     data.status === "open" ? colors.secondary[700] : colors.green[300];
