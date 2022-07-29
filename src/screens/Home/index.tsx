@@ -65,7 +65,7 @@ export default function Home() {
     auth()
       .signOut()
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
         return Alert.alert("Sair", "Não foi possivel sair");
       });
   };
