@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, StatusBarProps } from "react-native";
 import {
   StatusBar,
@@ -22,9 +22,15 @@ import { Loading } from "./src/components/Loading";
 
 import { Routes } from "./src/routes";
 
+
+export default function App() {
+  const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
+  const getColorMode = useColorMode();
+
 // Define the colorModeManager,
 // here we are using react-native-async-storage (https://react-native-async-storage.github.io/async-storage/)
 const colorModeManager: StorageManager = {
+ 
   get: async () => {
     try {
       let val = await AsyncStorage.getItem("@color-mode");
@@ -34,6 +40,7 @@ const colorModeManager: StorageManager = {
     }
   },
   set: async (value: ColorMode) => {
+    
     try {
       await AsyncStorage.setItem("@color-mode", value);
     } catch (e) {
@@ -41,12 +48,9 @@ const colorModeManager: StorageManager = {
     }
   },
 };
-export default function App() {
-  const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
- const getColorMode = useColorMode();
+
   return (
     <NativeBaseProvider theme={theme} colorModeManager={colorModeManager}>
-      
       {fontsLoaded ? <Routes /> : <Loading />}
     </NativeBaseProvider>
   );
