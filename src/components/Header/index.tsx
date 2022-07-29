@@ -6,10 +6,15 @@ import {
   IconButton,
   Pressable,
   StyledProps,
+  useColorModeValue,
   useTheme,
   VStack,
 } from "native-base";
-import { CaretLeft, DotsThreeCircleVertical, DotsThreeVertical } from "phosphor-react-native";
+import {
+  CaretLeft,
+  DotsThreeCircleVertical,
+  DotsThreeVertical,
+} from "phosphor-react-native";
 import { Alert } from "react-native";
 
 type Props = StyledProps & {
@@ -28,17 +33,18 @@ export function Header({ title, ...rest }: Props) {
       w={"full"}
       justifyContent="space-between"
       alignItems={"center"}
-      bg={"dark.600"}
+      bg={useColorModeValue(colors.light[50] ,colors.dark[100])}
       p={6}
       pt={12}
     >
       <IconButton
-        icon={<CaretLeft color={colors.light[200]} size={24} />}
+        bg={useColorModeValue(colors.light[50] ,colors.dark[100])}
+        icon={<CaretLeft color={useColorModeValue(colors.light[700],colors.light[200])} size={24} />}
         onPress={handleGoBack}
         zIndex={1}
       />
       <Heading
-        color={"light.200"}
+        color={useColorModeValue(colors.light[700],colors.light[200])}
         textAlign="center"
         fontSize={"lg"}
         flex={1}
@@ -48,7 +54,6 @@ export function Header({ title, ...rest }: Props) {
       >
         {title}
       </Heading>
-     
     </HStack>
   );
 }

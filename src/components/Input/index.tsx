@@ -1,23 +1,25 @@
 import React from "react";
-import { Input as NativeBaseInput, IInputProps } from "native-base";
+import { Input as NativeBaseInput, IInputProps, useColorModeValue, useTheme } from "native-base";
 
 export function Input({ ...rest }: IInputProps) {
+  const { colors } = useTheme();
   return (
     <NativeBaseInput
     
-      bg={"dark.700"}
       h={14}
       size="md"
       borderWidth={0}
       fontSize="md"
       fontFamily={"body"}
-      color={"white"}
-      placeholderTextColor={"dark.300"}
+      placeholderTextColor={useColorModeValue(colors.light[900],colors.dark[500])}
       _focus={{
         borderWidth: 1,
-        borderColor: "green.500",
-        bg: "dark.700",
+        borderColor: "primary.100",
+        bg: `${useColorModeValue(colors.light[200],colors.dark[100])}`,
+           
       }}
+      bg={useColorModeValue(colors.light[100],colors.dark[50])}
+       
       {...rest}
     />
   );

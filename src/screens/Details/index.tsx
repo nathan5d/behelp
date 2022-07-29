@@ -1,5 +1,5 @@
 import React from "react";
-import { VStack, Text, HStack, useTheme, ScrollView } from "native-base";
+import { VStack, Text, HStack, useTheme, ScrollView, useColorModeValue } from "native-base";
 
 import { useRoute } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
@@ -94,20 +94,20 @@ export default function Details() {
     return <Loading />;
   }
   return (
-    <VStack flex={1} bg="dark.700">
+    <VStack flex={1} _light={{bg:colors.light[50]}} _dark={{bg:colors.dark[100]}}>
       <Header title="Detalhes" />
-      <HStack bg={"dark.500"} justifyContent="center" p={4}>
+      <HStack _light={{bg:colors.light[100]}} _dark={{bg:colors.dark[50]}} justifyContent="center" p={4}>
         {order.status === "closed" ? (
-          <CircleWavyCheck size={22} color={colors.green[300]} />
+          <CircleWavyCheck size={22} color={colors.success[500]} />
         ) : (
-          <Hourglass size={22} color={colors.secondary[700]} />
+          <Hourglass size={22} color={colors.warning[500]} />
         )}
         <Text
           fontSize={"sm"}
           color={
             order.status === "closed"
-              ? colors.green[300]
-              : colors.secondary[700]
+              ? colors.success[500]
+              : colors.warning[500]
           }
           ml={2}
           textTransform="uppercase"
@@ -145,10 +145,20 @@ export default function Details() {
             placeholder="Descrição da solução"
             onChangeText={setSolution}
             textAlignVertical="top"
-            bg={"dark.700"}
-            _focus={{
-              bg: "dark.700",
+            _light={{
+              bg:colors.light[100],
+              _focus:{
+                bg: colors.light[200],
+              }
+              
             }}
+            _dark={{
+              bg:colors.dark[50],
+              _focus:{
+                bg: colors.dark[100],
+              }
+            }}
+            
             multiline
             h={24}
             mt={4}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { VStack } from "native-base";
+import { useColorModeValue, useTheme, VStack } from "native-base";
 
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
@@ -11,6 +11,7 @@ import firestore, {
 import { useNavigation } from "@react-navigation/native";
 
 export default function Register() {
+  const { colors } = useTheme();
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
   const [patrimony, setPatrimony] = useState("");
@@ -45,7 +46,7 @@ export default function Register() {
   }
 
   return (
-    <VStack flex={1} bg="dark.600">
+    <VStack flex={1} bg={useColorModeValue(colors.light[50] ,colors.dark[100])}>
       <Header title="Nova Solicitação" />
       <VStack flex={1} p={6}>
         <Input

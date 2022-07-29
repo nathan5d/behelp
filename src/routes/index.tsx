@@ -7,9 +7,11 @@ import SignIn from "../screens/SignIn";
 import { AppRoutes } from "./app.routes";
 import { useState, useEffect } from "react";
 import { Loading } from "../components/Loading";
+import { StatusBar, useColorMode, useColorModeValue } from "native-base";
 
 export function Routes() {
   const [loading, setLoading] = useState(true);
+  const getColorMode = useColorMode();
   const [user, setUser] = useState<FirebaseAuthTypes.User>();
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged((response) => {
@@ -17,15 +19,20 @@ export function Routes() {
       setLoading(false);
     });
 
-    return subscriber;
+    return subscriber;1
   }, []);
-
   if (loading) {
     return <Loading />;
   }
   return (
+   
     <NavigationContainer>
-      {user ? <AppRoutes /> : <SignIn />}
+      <StatusBar
+        barStyle={getColorMode.colorMode === "dark" ? "light-content" : "dark-content"}
+        backgroundColor="transparent"
+        translucent
+      />
+     {user ? <AppRoutes /> : <SignIn />}
     </NavigationContainer>
   );
 }

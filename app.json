@@ -1,21 +1,31 @@
 {
   "expo": {
-    "name": "behelp",
+    "name": "Be Help",
     "slug": "behelp",
-    "version": "1.0.0",
+    "version": "1.0.1",
+    "sdkVersion": "45.0.0",
     "assetBundlePatterns": [
       "**/*"
     ],
     "plugins": [
       "@react-native-firebase/app"
     ],
+   
     "android": {
       "package": "com.behelp",
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
     },
     "ios": {
       "bundleIdentifier": "com.behelp",
       "googleServicesFile": "./GoogleService-Info.plist"
+    },
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/a639cb60-620e-4e87-99be-57821d4b40d6"
     }
   }
 }

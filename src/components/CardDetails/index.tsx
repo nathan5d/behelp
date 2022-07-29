@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Box, HStack, Text, useTheme, VStack } from "native-base";
+import { Box, HStack, Text, useColorModeValue, useTheme, VStack } from "native-base";
 import { IconProps } from "phosphor-react-native";
 import { StyleProp } from "react-native";
 import { InterfaceVStackProps } from "native-base/lib/typescript/components/primitives/Stack/VStack";
@@ -21,16 +21,16 @@ export function CardDetails({
   const { colors } = useTheme();
 
   return (
-    <VStack bg="dark.600" p={5} mt={5} rounded="sm" 
+    <VStack bg={useColorModeValue(colors.light[100],colors.dark[50])}  p={5} mt={5} rounded="sm" 
     {...rest}>
       <HStack alignItems={"center"} mb={4}>
-        <Icon color={colors.primary[700]} />
-        <Text ml={2} color="dark.300" fontSize={"sm"} textTransform="uppercase">
+        <Icon color={colors.primary[500]} />
+        <Text ml={2} color={useColorModeValue(colors.dark[200],colors.light[100])} fontSize={"sm"} textTransform="uppercase">
           {title}
         </Text>
       </HStack>
       {!!description && (
-        <Text color="light.100" fontSize="md">
+        <Text color={useColorModeValue(colors.dark[400],colors.light[100])} fontSize="md">
           {description}
         </Text>
       )}
@@ -40,7 +40,7 @@ export function CardDetails({
 
       {!!footer && (
         <Box borderTopWidth={1} borderTopColor="dark.400" mt={3}>
-          <Text mt={3} color="dark.300" fontSize="sm">
+          <Text mt={3} color={useColorModeValue(colors.dark[400],colors.dark[300])} fontSize="sm">
             {footer}
           </Text>
         </Box>

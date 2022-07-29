@@ -1,28 +1,52 @@
 import React from "react";
-import { StatusBar, StyleSheet, Text, View } from "react-native";
-import { Box, NativeBaseProvider } from "native-base";
+import { StyleSheet, Text, View, StatusBarProps } from "react-native";
+import {
+  StatusBar,
+  Box,
+  ColorMode,
+  NativeBaseProvider,
+  StorageManager,
+  useColorMode,
+  useColorModeValue,
+} from "native-base";
 import {
   useFonts,
   Roboto_700Bold,
   Roboto_400Regular,
 } from "@expo-google-fonts/roboto";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { theme } from "./src/styles/theme";
+
 import { Loading } from "./src/components/Loading";
 
 import { Routes } from "./src/routes";
 
+// Define the colorModeManager,
+// here we are using react-native-async-storage (https://react-native-async-storage.github.io/async-storage/)
+const colorModeManager: StorageManager = {
+  get: async () => {
+    try {
+      let val = await AsyncStorage.getItem("@color-mode");
+      return val === "dark" ? "dark" : "light";
+    } catch (e) {
+      return "light";
+    }
+  },
+  set: async (value: ColorMode) => {
+    try {
+      await AsyncStorage.setItem("@color-mode", value);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+};
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
-
+ const getColorMode = useColorMode();
   return (
-    <NativeBaseProvider theme={theme}>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor="transparent"
-        translucent
-      />
-
+    <NativeBaseProvider theme={theme} colorModeManager={colorModeManager}>
+      
       {fontsLoaded ? <Routes /> : <Loading />}
     </NativeBaseProvider>
   );

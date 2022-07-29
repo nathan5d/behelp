@@ -8,12 +8,14 @@ import {
   VStack,
   Pressable,
   IPressableProps,
+  useColorModeValue,
 } from "native-base";
 import {
   ClockAfternoon,
   Hourglass,
   CircleWavyCheck,
 } from "phosphor-react-native";
+import Animated, { FadeIn, FadeInDown, FadeInLeft } from "react-native-reanimated";
 
 export type OrderProps = {
   id: string;
@@ -28,12 +30,13 @@ type Props = IPressableProps & {
 export function Order({ data, ...rest }: Props) {
   const { colors } = useTheme();
   const statusColor =
-    data.status === "open" ? colors.secondary[700] : colors.green[300];
+    data.status === "open" ? colors.warning[600] : colors.success[600];
 
   return (
     <Pressable {...rest}>
+      <Animated.View entering={FadeInDown.duration(500)}>
       <HStack
-        bg={"dark.600"}
+        bg={useColorModeValue(colors.light[100], colors.dark[50])}
         mb={4}
         alignItems="center"
         justifyContent={"space-between"}
@@ -42,17 +45,33 @@ export function Order({ data, ...rest }: Props) {
       >
         <Box h="full" w={2} bg={statusColor} />
         <VStack flex={1} my={5} ml={5}>
-          <Text color={"white"} fontSize="md">
-            Patrimonio {data.patrimony}
-          </Text>
-          <HStack alignItems={"center"}>
-            <ClockAfternoon size={15} color={colors.light[200]} />
-            <Text color={"light.200"} fontSize={"xs"} ml={1}>
-              {data.when}
+          
+            <Text
+              color={useColorModeValue(colors.dark[200], colors.dark[600])}
+              fontSize="md"
+            >
+              Patrimonio {data.patrimony}
             </Text>
-          </HStack>
+            <HStack alignItems={"center"}>
+              <ClockAfternoon
+                size={15}
+                color={useColorModeValue(colors.dark[400], colors.dark[300])}
+              />
+              <Text
+                color={useColorModeValue(colors.dark[400], colors.dark[300])}
+                fontSize={"xs"}
+                ml={1}
+              >
+                {data.when}
+              </Text>
+            </HStack>
         </VStack>
-        <Circle bg={"dark.500"} h={12} w={12} mr={5}>
+        <Circle
+          bg={useColorModeValue(colors.light[200], colors.dark[100])}
+          h={12}
+          w={12}
+          mr={5}
+        >
           {data.status === "closed" ? (
             <CircleWavyCheck size={24} color={statusColor} />
           ) : (
@@ -60,6 +79,7 @@ export function Order({ data, ...rest }: Props) {
           )}
         </Circle>
       </HStack>
+      </Animated.View>
     </Pressable>
   );
 }
