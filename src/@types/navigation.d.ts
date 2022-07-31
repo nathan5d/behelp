@@ -5,7 +5,7 @@ export declare global{
             new:undefined;
             login:undefined;
             details:{orderId:string};
-            
+            signup:undefined;
         }
     }
 }

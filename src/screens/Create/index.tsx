@@ -10,14 +10,14 @@ import firestore, {
 } from "@react-native-firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 
-export default function Register() {
+export default function Create() {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
   const [patrimony, setPatrimony] = useState("");
   const [description, setDescription] = useState("");
 
-  function handleNewOrderRegister() {
+  function handleNewOrderCreate() {
     if (!patrimony || !description) {
       return Alert.alert("Registrar", "Preencha todos os campos");
     }
@@ -62,7 +62,7 @@ export default function Register() {
           textAlignVertical="top"
           onChangeText={setDescription}
         />
-        <Button title="Cadastrar" mt={5} onPress={handleNewOrderRegister} />
+        <Button title="Cadastrar" mt={5} onPress={handleNewOrderCreate} />
       </VStack>
     </VStack>
   );

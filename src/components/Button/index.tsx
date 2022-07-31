@@ -1,24 +1,31 @@
 import React from "react";
-import { Button as ButtonNativeBase, IButtonProps, Heading, useColorModeValue, useTheme } from "native-base";
+import {
+  Button as ButtonNativeBase,
+  IButtonProps,
+  Heading,
+  useColorModeValue,
+  useTheme,
+} from "native-base";
 
 type Props = IButtonProps & {
   title: string;
 };
 
-
-export function Button({ title, ...rest }: Props) {
+export function Button({ title, color, ...rest }: Props) {
   const { colors } = useTheme();
   return (
     <ButtonNativeBase
-      {...(rest.variant != "outline" && { bg: `${useColorModeValue(colors.primary[500],colors.primary[500])}` })}
-      color="white"
+      {...(rest.variant === undefined && {
+        bg: `${useColorModeValue(colors.primary[500], colors.primary[500])}`,
+      })}
+      
       h={14}
       fontSize={"sm"}
       rounded={"sm"}
       _pressed={{ bg: "green.500" }}
       {...rest}
     >
-      <Heading color={"white"} fontSize="sm">
+      <Heading color={color?color: colors.white} fontSize="sm">
         {title}
       </Heading>
     </ButtonNativeBase>

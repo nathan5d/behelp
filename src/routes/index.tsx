@@ -3,6 +3,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import auth, { FirebaseAuthTypes } from "@react-native-firebase/auth";
 import SignIn from "../screens/SignIn";
+import {SignRoutes} from "./sign.routes";
 
 import { AppRoutes } from "./app.routes";
 import { useState, useEffect } from "react";
@@ -32,7 +33,7 @@ export function Routes() {
         backgroundColor="transparent"
         translucent
       />
-     {user ? <AppRoutes /> : <SignIn />}
+     {user ? <AppRoutes /> : <SignRoutes />}
     </NavigationContainer>
   );
 }

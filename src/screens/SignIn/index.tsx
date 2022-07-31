@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Alert } from "react-native";
+import { Alert, Platform, Pressable } from "react-native";
 import auth from "@react-native-firebase/auth";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -13,6 +13,9 @@ import {
   FormControl,
   WarningOutlineIcon,
   useColorModeValue,
+  Text,
+  ScrollView,
+  KeyboardAvoidingView,
 } from "native-base";
 import { Envelope, Key } from "phosphor-react-native";
 import Logo from "../../assets/be_logo_primary.svg";
@@ -26,6 +29,7 @@ type ErrorProps = {
   password: string;
 };
 export default function SignIn() {
+  const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,29 +38,30 @@ export default function SignIn() {
   const [errors, setErrors] = useState<ErrorProps>({} as ErrorProps);
 
   const validateEmail = () => {
-    let reg =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    let reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (reg.test(email) === false) {
-      setErrors({ ...errors, email: "Email inválido" });
+      setErrors({ ...errors, email: "Email inválido." });
       return false;
     } else if (email === "") {
-      setErrors({ ...errors, email: "Email is required" });
+      setErrors({ ...errors, email: "Email é obrigatório." });
       return false;
     } else {
       setErrors({ ...errors, email: "" });
-      return false;
+      return true;
     }
+    return true;
   };
   const validatePassword = () => {
     if (password === "") {
-      setErrors({ ...errors, password: "Name is required" });
+      setErrors({ ...errors, password: "Você precisa definir uma senha." });
       return false;
     } else if (password.length < 3) {
-      setErrors({ ...errors, password: "Name is too short" });
+      setErrors({ ...errors, password: "A senha é muito curta." });
       return false;
     } else {
       setErrors({ ...errors, password: "" });
-      return false;
+      return true;
     }
 
     return true;
@@ -89,18 +94,16 @@ export default function SignIn() {
     //navigation.navigate("login");
   };
   const handleSignIn = () => {
-    //onSubmit();
-    if (!email || !password) {
-      setErrors({
-        ...errors,
-        password: "Preencha todos os campos",
-      });
-      return;
-      return Alert.alert(
-        "Entrar",
-        "Please enter your email address and password."
-      );
+
+    if(!email || !password){
+      setErrors({ ...errors, password: "Preencha todos os campos." });
+      return false;
     }
+    //onSubmit();
+    if (validateEmail() && validatePassword() === false) {
+      
+       return false;
+     }
 
     setIsLoading(true);
 
@@ -141,96 +144,107 @@ export default function SignIn() {
       });
   };
 
+  const handleSignUp = () => {
+    navigation.navigate("signup");
+  };
   return (
-    <VStack
-      flex={1}
-      alignItems="center"
+    <KeyboardAvoidingView
+    w={"full"}
+      h={"full"}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       bg={useColorModeValue(colors.light[50], colors.dark[100])}
-      paddingX={8}
-      paddingTop={24}
+       
     >
-      <PresenceTransition
-        visible={true}
-        initial={{
-          opacity: 0,
-        }}
-        animate={{
-          opacity: 1,
-          transition: {
-            duration: 250,
-          },
-        }}
-      >
-        <Animated.View entering={FadeInDown.duration(500)}>
-          <Logo width={120} />
-        </Animated.View>
-      </PresenceTransition>
-
-      <Heading
-        color={useColorModeValue(colors.light[700], colors.light[200])}
-        fontSize="xl"
-        mt={20}
-        mb={6}
-      >
-        Acesse Sua Conta
-      </Heading>
-
-      <FormControl isRequired isInvalid={"email" in errors} mb={4}>
-        <Input
-          type="text"
-          placeholder="E-mail"
-          InputLeftElement={
-            <Icon as={<Envelope color={colors.light[600]} />} ml={4} />
-          }
-          onChangeText={(t) => {
-            handleEmail(t.replace(/\s/g, ""));
-          }}
-          autoCapitalize="none"
-        />
-        <FormControl.HelperText
-          _text={{
-            fontSize: "xs",
-          }}
-        ></FormControl.HelperText>
-        <FormControl.ErrorMessage
-          _text={{
-            fontSize: "xs",
-          }}
-        >
-          {errors.email}
-        </FormControl.ErrorMessage>
-      </FormControl>
-      <FormControl isRequired isInvalid={"password" in errors} mb={8}>
-        <Input
-          placeholder="Senha"
-          InputLeftElement={
-            <Icon as={<Key color={colors.dark[300]} />} ml={4} />
-          }
-          secureTextEntry
-          onChangeText={(p) => handlePassword(p)}
-          autoCapitalize="none"
-        />
-        <FormControl.HelperText
-          _text={{
-            fontSize: "xs",
-          }}
-        ></FormControl.HelperText>
-        <FormControl.ErrorMessage
-          _text={{
-            fontSize: "xs",
-          }}
-        >
-          {errors.password}
-        </FormControl.ErrorMessage>
-      </FormControl>
-
-      <Button
-        title="Entrar"
+      <VStack
+        flex={1}
         w={"full"}
-        mb={4}
-        onPress={handleSignIn}
-        isLoading={isLoading}
-      />
-    </VStack>
+        alignItems="center"
+        bg={useColorModeValue(colors.light[50], colors.dark[100])}
+        paddingX={8}
+        paddingTop={24}
+      >
+          <Animated.View entering={FadeInDown.duration(500)}>
+            <Logo width={120} />
+          </Animated.View>
+
+          <Heading
+            color={useColorModeValue(colors.light[700], colors.light[200])}
+            fontSize="xl"
+            mt={20}
+            mb={6}
+          >
+            Acesse sua conta
+          </Heading>
+
+          <FormControl isRequired isInvalid={"email" in errors} mb={4}>
+            <Input
+              type="text"
+              placeholder="E-mail"
+              InputLeftElement={
+                <Icon as={<Envelope color={colors.light[600]} />} ml={4} />
+              }
+              onChangeText={(t) => {
+                handleEmail(t.replace(/\s/g, ""));
+              }}
+              autoCapitalize="none"
+            />
+            <FormControl.HelperText
+              _text={{
+                fontSize: "xs",
+              }}
+            ></FormControl.HelperText>
+            <FormControl.ErrorMessage
+              _text={{
+                fontSize: "xs",
+              }}
+            >
+              {errors.email}
+            </FormControl.ErrorMessage>
+          </FormControl>
+          <FormControl isRequired isInvalid={"password" in errors} mb={8}>
+            <Input
+              placeholder="Senha"
+              InputLeftElement={
+                <Icon as={<Key color={colors.dark[300]} />} ml={4} />
+              }
+              secureTextEntry
+              onChangeText={(p) => handlePassword(p)}
+              autoCapitalize="none"
+            />
+            <FormControl.HelperText
+              _text={{
+                fontSize: "xs",
+              }}
+            ></FormControl.HelperText>
+            <FormControl.ErrorMessage
+              _text={{
+                fontSize: "xs",
+              }}
+            >
+              {errors.password}
+            </FormControl.ErrorMessage>
+          </FormControl>
+
+          <Button
+            title="Entrar"
+            w={"full"}
+            mb={4}
+            onPress={handleSignIn}
+            isLoading={isLoading}
+          />
+
+          <Button
+            size={"sm"}
+            title="Criar conta"
+            color={colors.primary[500]}
+            variant={"link"}
+            w={"full"}
+            h={8}
+            mb={4}
+            _pressed={{}}
+            onPress={handleSignUp}
+          />
+      </VStack>
+    </KeyboardAvoidingView>
   );
 }

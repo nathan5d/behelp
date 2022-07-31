@@ -30,6 +30,7 @@ import {
   ChatText,
   Sun,
   Moon,
+  CircleHalf,
 } from "phosphor-react-native";
 
 import { dateFormat } from "../../utils/firestoreDateFormats";
@@ -146,9 +147,7 @@ export default function Home() {
                   <Text>{useColorModeValue("Dark Mode", "Light Mode")}</Text>
                   <IconButton
                     icon={
-                      colorMode === "dark"
-                      ?  <Sun size={22} color={colors.primary[500]} />
-                      :  <Moon size={22} color={colors.primary[500]} />
+                      <CircleHalf  weight="duotone" size={22} color={colors.primary[500]} />
                      }
                     onPress={toggleColorMode}
                   />
